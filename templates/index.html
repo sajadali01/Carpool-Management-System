@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carpool Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Carpool Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="{{ url_for('add_vehicle') }}">Add Vehicle</a></li>                
+                <li><a href="#remove-car">Remove Car</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home">
+            {% if session.userinfo %}
+                <h1>Welcome, {{ session.userinfo.name }}!</h1>
+                <button class="logout-btn" onclick="window.location.href='/logout'">Log Out</button>
+            {% else %}
+                <h1>Welcome, Guest</h1>
+                <button class="login-btn" onclick="window.location.href='/login'">Login</button>
+            {% endif %}
+        </section>
+
+        <section>
+            <div class="time-period-buttons">
+                <button onclick="showContent('daily')" class="period-btn">Daily</button>
+                <button onclick="showContent('monthly')" class="period-btn">Monthly</button>
+                <button onclick="showContent('semester')" class="period-btn">Semester</button>
+            </div>
+
+            <div id="daily-content" class="content-section">
+                <h2>Daily Carpools</h2>
+                <p>Daily carpool schedules and information...</p>
+            </div>
+
+            <div id="monthly-content" class="content-section">
+                <h2>Monthly Carpools</h2>
+                <p>Monthly carpool schedules and information...</p>
+            </div>
+
+            <div id="semester-content" class="content-section">
+                <h2>Semester Carpools</h2>
+                <p>Semester carpool schedules and information...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Carpool Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showContent(contentId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.style.display = 'none');
+
+            const selectedSection = document.getElementById(`${contentId}-content`);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showContent('daily');
+        });
+    </script>
+</body>
+</html>

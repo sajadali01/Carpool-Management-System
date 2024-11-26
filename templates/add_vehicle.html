@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carpool Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='map-style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Add a Vehicle:</h1> 
+        <nav>
+            <ul>
+                <form id="add-vehicle-form">
+                <label for="cars">Choose a Vehicle:</label>
+                <select name="vehicle_type" id="vehicle_type">
+                    <option value="car">Car</option>
+                    <option value="bike">Bike</option>
+                </select>
+
+                <label for="cars">Choose Duration:</label>
+                <select name="duration" id="duration">
+                    <option value="daily">Daily</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="semester">Semester</option>
+                </select>
+
+                <div id="custom-seats-container" style="margin-top: 10px;">
+                    <label for="seats">Enter Number of Seats: </label>
+                    <input id="seats" type="number" min="1" placeholder="Enter seats" />
+                </div>
+
+                <label for="carname">Car Name: </label>
+                <input id="carname" type="text" placeholder="Black Vigo"><br><br>
+
+                <label for="car_description">Car Description: </label>
+                <input id="car_description" type="text" placeholder="Air Conditioned Car with tilted windows"><br><br>
+
+                <label for="number_plate">Number Plate: </label>
+                <input id="number_plate" type="text" placeholder="BSY-904"><br><br>
+
+                <label for="route">Route: </label>
+
+                <label for="from">From: </label>
+                <input id="from-input" type="text" placeholder="Enter starting location"><br><br>
+
+                <label for="to">To: </label>
+                <input id="to-input" type="text" placeholder="Enter destination"><br><br>
+
+                <label for="departure_time">Departure Time: </label>
+                <input id="departure_time" type="text" placeholder="9:00 AM"><br><br>
+
+                <label for="return_time">Return Time: </label>
+                <input id="return_time" type="text" placeholder="4:00 PM"><br><br>
+
+                <label for="whatsapp_num">WhatsApp Number: </label>
+                <input id="whatsapp_num" type="text" placeholder="03950841532"><br><br>
+
+                <label for="off_day">Off Day: </label>
+                <input id="off_day" type="text" placeholder="Monday"><br><br>
+
+                <button type="submit">Add Vehicle</button>
+            </form>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="map"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Carpool Management System. All rights reserved.</p>
+    </footer>
+
+    <script async defer
+    src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyx3Dv2NQ1Wq9cFYGjm1LcuUy8k4ocbHJuz&libraries=geometry,places&callback=initMap">
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+</body>
+</html>
