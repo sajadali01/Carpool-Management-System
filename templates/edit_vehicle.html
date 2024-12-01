@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Vehicle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit_vehicle.css') }}">
+    <script>
+        async function fetchVehicleDetails(vehicleId) {
+            try {
+                const response = await fetch(`/get_vehicle_details/${vehicleId}`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch vehicle details");
+                }
+                const data = await response.json();
+
+                // Populate the form with fetched data
+                document.getElementById('vehicle_name').value = data.vehicle_name || '';
+                document.getElementById('vehicle_description').value = data.vehicle_description || '';
+                document.getElementById('number_plate').value = data.number_plate || '';
+                document.getElementById('vehicle_type').value = data.vehicle_type || '';
+                document.getElementById('available_seats').value = data.available_seats || '';
+                document.getElementById('duration').value = data.duration || '';
+                document.getElementById('whatsapp_number').value = data.whatsapp_number || '';
+                document.getElementById('off_day').value = data.off_day || '';
+            } catch (error) {
+                console.error(error);
+                alert("An error occurred while fetching vehicle details.");
+            }
+        }
+
+        // Add event listener for vehicle selection
+        document.addEventListener('DOMContentLoaded', function () {
+            const vehicleSelector = document.getElementById('vehicle_id');
+            vehicleSelector.addEventListener('change', function () {
+                const selectedVehicleId = vehicleSelector.value;
+                if (selectedVehicleId) {
+                    fetchVehicleDetails(selectedVehicleId);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Edit Vehicle and Owner Details</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}" class="return-home">Return to Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Available Vehicles</h2>
+        
+            <!-- Display error messages -->
+            {% if error_message %}
+            <div class="error-message">
+                <p>{{ error_message }}</p>
+            </div>
+            {% endif %}
+        
+            {% if vehicles %}
+            <form id="edit-vehicle-form" method="POST" action="{{ url_for('edit_vehicle') }}">
+                <label for="vehicle_id">Select a Vehicle to Edit</label>
+                <select name="vehicle_id" id="vehicle_id" required>
+                    <option value="" disabled selected>Select a vehicle</option>
+                    {% for vehicle in vehicles %}
+                        <option value="{{ vehicle.vehicle_id }}">{{ vehicle.vehicle_name }} - {{ vehicle.number_plate }}</option>
+                    {% endfor %}
+                </select>
+        
+                <!-- Vehicle details -->
+                <label for="vehicle_name">Vehicle Name</label>
+                <input type="text" id="vehicle_name" name="vehicle_name" required>
+        
+                <label for="vehicle_description">Vehicle Description</label>
+                <input type="text" id="vehicle_description" name="vehicle_description" required>
+        
+                <label for="number_plate">Number Plate</label>
+                <input type="text" id="number_plate" name="number_plate" required>
+        
+                <label for="vehicle_type">Vehicle Type</label>
+                <input type="text" id="vehicle_type" name="vehicle_type" required>
+        
+                <label for="available_seats">Available Seats</label>
+                <input type="number" id="available_seats" name="available_seats" required>
+        
+                <label for="duration">Duration</label>
+                <select id="duration" name="duration" required>
+                    <option value="daily">Daily</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="semester">Semester</option>
+                </select>
+        
+                <!-- Owner details -->
+                <label for="whatsapp_number">WhatsApp Number</label>
+                <input type="text" id="whatsapp_number" name="whatsapp_number" required>
+        
+                <label for="off_day">Off Day</label>
+                <input type="text" id="off_day" name="off_day" required>
+        
+                <button type="submit">Update Details</button>
+            </form>
+            {% else %}
+            <p>No vehicles available for editing.</p>
+            {% endif %}
+        </section>
+        
+        <style>
+            .error-message {
+                color: red;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+        </style>
+        
+    </main>
+    <footer>
+        <p>&copy; 2024 Carpool Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

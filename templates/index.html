@@ -12,9 +12,10 @@
         <h1>Welcome to the Carpool Management System</h1>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="{{ url_for('add_vehicle') }}">Add Vehicle</a></li>                
-                <li><a href="#remove-car">Remove Car</a></li>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('add_vehicle') }}">Add Vehicle</a></li>  
+                <li><a href="{{ url_for('delete_vehicle') }}">Delete Vehicle</a></li>
+                <li><a href="{{ url_for('edit_vehicle') }}">Edit Vehicle</a></li>
             </ul>
         </nav>
     </header>
@@ -39,17 +40,53 @@
 
             <div id="daily-content" class="content-section">
                 <h2>Daily Carpools</h2>
-                <p>Daily carpool schedules and information...</p>
+                {% for vehicle in daily_vehicles %}
+                    <div class="vehicle-card">
+                        <h3>{{ vehicle.vehicle_name }}</h3>
+                        <p><strong>Description:</strong> {{ vehicle.vehicle_description }}</p>
+                        <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
+                        <p><strong>Number Plate:</strong> {{ vehicle.number_plate }}</p>
+                        <p><strong>Available Seats:</strong> {{ vehicle.available_seats }}</p>
+                        <p><strong>Owner Name:</strong> {{ vehicle.owner.name }}</p>
+                        <p><strong>Emai ID:</strong> {{ vehicle.owner.email }}</p>
+                        <p><strong>WhatsApp:</strong> {{ vehicle.owner.whatsapp_number }}</p>
+                        <p><strong>Off Day:</strong> {{ vehicle.owner.off_day }}</p>
+                    </div>
+                {% endfor %}
             </div>
 
             <div id="monthly-content" class="content-section">
                 <h2>Monthly Carpools</h2>
-                <p>Monthly carpool schedules and information...</p>
+                {% for vehicle in monthly_vehicles %}
+                    <div class="vehicle-card">
+                        <h3>{{ vehicle.vehicle_name }}</h3>
+                        <p><strong>Description:</strong> {{ vehicle.vehicle_description }}</p>
+                        <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
+                        <p><strong>Number Plate:</strong> {{ vehicle.number_plate }}</p>
+                        <p><strong>Available Seats:</strong> {{ vehicle.available_seats }}</p>
+                        <p><strong>Owner Name:</strong> {{ vehicle.owner.name }}</p>
+                        <p><strong>Emai ID:</strong> {{ vehicle.owner.email }}</p>
+                        <p><strong>WhatsApp:</strong> {{ vehicle.owner.whatsapp_number }}</p>
+                        <p><strong>Off Day:</strong> {{ vehicle.owner.off_day }}</p>
+                    </div>
+                {% endfor %}
             </div>
 
             <div id="semester-content" class="content-section">
                 <h2>Semester Carpools</h2>
-                <p>Semester carpool schedules and information...</p>
+                {% for vehicle in semester_vehicles %}
+                    <div class="vehicle-card">
+                        <h3>{{ vehicle.vehicle_name }}</h3>
+                        <p><strong>Description:</strong> {{ vehicle.vehicle_description }}</p>
+                        <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
+                        <p><strong>Number Plate:</strong> {{ vehicle.number_plate }}</p>
+                        <p><strong>Available Seats:</strong> {{ vehicle.available_seats }}</p>
+                        <p><strong>Owner Name:</strong> {{ vehicle.owner.name }}</p>
+                        <p><strong>Emai ID:</strong> {{ vehicle.owner.email }}</p>
+                        <p><strong>WhatsApp:</strong> {{ vehicle.owner.whatsapp_number }}</p>
+                        <p><strong>Off Day:</strong> {{ vehicle.owner.off_day }}</p>
+                    </div>
+                {% endfor %}
             </div>
         </section>
     </main>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Vehicle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='delete_vehicle.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Delete a Vehicle</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}" class="return-home">Return to Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Available Vehicles</h2>
+            {% if vehicles %}
+                <form id="delete-vehicle-form" method="POST" action="{{ url_for('delete_vehicle') }}">
+                    <label for="vehicle_id">Select a Vehicle to Delete</label>
+                    <select name="vehicle_id" id="vehicle_id" required>
+                        {% for vehicle in vehicles %}
+                            <option value="{{ vehicle.vehicle_id }}">{{ vehicle.vehicle_name }} - {{ vehicle.number_plate }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Delete Vehicle</button>
+                </form>
+            {% else %}
+                <p>No vehicles available for deletion.</p>
+            {% endif %}
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Carpool Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
